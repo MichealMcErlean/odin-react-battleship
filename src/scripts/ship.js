@@ -21,7 +21,7 @@ export class Ship {
 }
 
 export class GameBoard {
-  constructor(size = 10) {
+  constructor(size = 8) {
     this.size = size;
     this.board = this.#buildBoard(this.size);
     this.ships = [];
