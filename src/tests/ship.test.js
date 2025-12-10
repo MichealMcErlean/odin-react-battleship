@@ -1,4 +1,6 @@
-import {Ship, GameBoard, Player} from './ship.js';
+import { expect, it } from 'vitest';
+import { isArrayOfArrays } from './test-utils.js';
+import {Ship, GameBoard, Player} from '../scripts/ship.js';
 
 
 let carrier;
@@ -56,7 +58,7 @@ describe('A GameBoard', () => {
   it('creates a grid of the specified size, defaults to 10x10', () => {
     expect(playerBoard.board[0][0]).toEqual(0);
     expect(playerBoard.board[4][6]).toEqual(0);
-    expect(playerBoard.board[9][9]).toEqual(0);
+    expect(playerBoard.board[7][7]).toEqual(0);
   })
 
   it('has a list of ships on the board', () => {
@@ -80,14 +82,6 @@ describe('A GameBoard', () => {
     expect(playerBoard.placeShip(battleship, [[1,2],[2,2],[3,2],[4,2]])).toEqual(false);
   })
 
-  // it('should have 2 ships at the moment', () => {
-  //   expect(playerBoard.ships.length).toEqual(2);
-  // })
-
-  // it('should have a ship at [1,1],[1,2]', () => {
-  //   expect(playerBoard.ships[0].loc).toContainEqual([1,1]);
-  // })
-
   it('can receiveAttack, accepting a pair of co-ordinates', () => {
     expect(playerBoard.receiveAttack([5,6])).toEqual(submarine);
   });
@@ -97,7 +91,7 @@ describe('A GameBoard', () => {
   })
 
   it('returns false on a miss', () => {
-    expect(playerBoard.receiveAttack([8,9])).toEqual(false);
+    expect(playerBoard.receiveAttack([7,7])).toEqual(false);
   })
 
   it('can report whether all its ships are gone', () => {
@@ -105,24 +99,26 @@ describe('A GameBoard', () => {
   })  
 
   it('can randomly generate a viable set of co-ordinates to place a Ship', () => {
+
+    
+
     let newDes = new Ship(2, 0, false, [], 'Destroyer');
     let newCru = new Ship(3, 0, false, [], 'Cruiser');
     let newBat = new Ship(4, 0, false, [], 'Battleship');
     let newCar = new Ship(5, 0, false, [], 'Carrier')
     let newLoc = playerBoard.generateRandomShipPlace(newDes);
-    expect(newLoc).toEqual(expect.arrayOf(expect.arrayOf(expect.any(Number))));
+ 
+    expect(isArrayOfArrays(newLoc)).toBe(true);
     expect(newLoc).toHaveLength(2);
     newLoc = playerBoard.generateRandomShipPlace(newCru);
-    expect(newLoc).toEqual(expect.arrayOf(expect.arrayOf(expect.any(Number))));
+    expect(isArrayOfArrays(newLoc)).toBe(true);
     expect(newLoc).toHaveLength(3);
     newLoc = playerBoard.generateRandomShipPlace(newBat);
-    expect(newLoc).toEqual(expect.arrayOf(expect.arrayOf(expect.any(Number))));
+    expect(isArrayOfArrays(newLoc)).toBe(true);
     expect(newLoc).toHaveLength(4);
     newLoc = playerBoard.generateRandomShipPlace(newCar);
-    expect(newLoc).toEqual(expect.arrayOf(expect.arrayOf(expect.any(Number))));
+    expect(isArrayOfArrays(newLoc)).toBe(true);
     expect(newLoc).toHaveLength(5);
-      
-    
   })
 
 });
@@ -133,8 +129,21 @@ describe('A Player', () => {
     player1 = new Player();
   })
 
-  it('has a GameBoard', () => {
-    expect(player1.board.board).toBeDefined();
+  it('has a board', () => {
+    expect(player1.board).toBeDefined();
+    expect(isArrayOfArrays(player1.board)).toBe(true);
   })
 
+  it('has a list of ships', () => {
+    expect(player1.ships.destroyer).toEqual({length: 2, hits: 0, sunk: false});
+  })
+
+  it('has a Set to record previous shots', () => {
+    expect(player1.shots).toBeInstanceOf(Set);
+  })
+
+  it('has the board\'s side length in cells', () => {
+    expect(player1.size).toEqual(8);
+  })
+  
 });

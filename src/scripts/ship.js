@@ -66,6 +66,7 @@ export class GameBoard {
     let x = xy[0];
     let y = xy[1];
     let hitShip = null;
+    this.board[x][y] = 1;
     this.ships.forEach(ship => {
       ship.loc.forEach(ab => {
         if (this.#matchCoords(xy, ab)) {
@@ -78,7 +79,6 @@ export class GameBoard {
         }
       })
     })
-    this.board[x][y] = 1;
     this.shots.add(JSON.stringify(xy));
     if (hitShip !== null) {
       return hitShip;
@@ -114,7 +114,19 @@ export class GameBoard {
 
 export class Player {
   constructor(type) {
-    this.board = new GameBoard();
+    this.board = new Array(8);
+    this.board.fill(new Array(8).fill({ hit: false, ship: null}));
+    this.ships = {
+      destroyer: {length: 2, hits: 0, sunk: false},
+      submarine: {length: 3, hits: 0, sunk: false},
+      cruiser: {length: 3, hits: 0, sunk: false},
+      battleship: {length: 4, hits: 0, sunk: false},
+      carrier: {length: 5, hits: 0, sunk: false}
+    }
+    this.shots = new Set(); 
+    this.size = 8;
     this.type = type == 'human' ? type : 'computer';
   }
+
+
 }
