@@ -1,0 +1,93 @@
+main {
+  background-image:url('./assets/topography.svg');
+  background-color: #3a038d;
+  color:aliceblue;
+  min-height: 100vh;
+  min-width: 100 vw;
+  display: grid;
+  grid-template-rows: min-content 1fr min-content;
+  font-size: clamp(1.4rem, 1.4rem + 1vw, 1.8rem);
+}
+
+main * {
+  padding: 5px;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+header {
+  text-align: center;
+}
+
+.playerboard {
+  border: 3px solid black;
+  /* height: clamp(320px, 320px + 2vh + 2vw, 640px); */
+  width: clamp(320px, 100% - 4vw, 640px);
+  height: clamp(320px, 100% - 4vw, 640px);
+  aspect-ratio: 1 / 1;
+  min-height: 320px;
+  min-width: 320px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.shipbuttons {
+  width: clamp(320px, 320px + 2vh + 2vw, 640px);
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  flex-wrap:wrap;
+  justify-content: center;;
+}
+
+.shipbuttons button {
+  width: 33%;
+
+}
+
+.lengthnum {
+  font-size: 2.4rem;
+}
+
+.utilbuttons {
+  width: clamp(320px, 320px + 2vh + 2vw, 640px);
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.utilbuttons button {
+  width: 50%;
+}
+
+footer {
+  font-size: 1.0rem;
+  background-color: #222;
+}
+
+.credits {
+  font-size: 1.0rem;
+}
+
+@media (min-width: 700px) and (orientation: landscape) {
+
+  article {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .playerboard {
+    margin: 20px;
+  }
+
+  .shipbuttons {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .utilbuttons button {
+    min-height: 44px;
+    font-size: 1.8rem;
+  }
+}
