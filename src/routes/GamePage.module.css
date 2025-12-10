@@ -1,0 +1,85 @@
+.link:link {
+  color:aqua;
+}
+
+.link:visited {
+  color:deeppink;
+}
+
+#msglog {
+  width: clamp(340px, 100vw - 4vw, 510px);
+  mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
+}
+
+.msglog {
+  width: clamp(300px, 100vw - 4vw, 400px);
+  height: clamp( 40px, 40px + 1vw + 1vh, 60px);
+  background-color: aliceblue;
+  color: black;
+  font-size: 1.2rem;
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column-reverse;
+  mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
+  margin: 0 auto;
+}
+
+.msglog p {
+  padding: 0;
+}
+
+.boardbox {
+  margin: 0 auto;
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  width: 100%;
+  align-items:center;
+}
+
+.computerboard {
+  width: clamp(300px, 300px + 5vw, 450px);
+  height: auto;
+  aspect-ratio: 1 / 1;
+  border: 2px solid black;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.playerboard {
+  width: clamp(280px, 280px + 5vw, 420px);
+  height: auto;
+  aspect-ratio: 1 / 1;
+  border: 2px solid black;
+  margin: 5px auto;
+}
+
+.buttonbox {
+  display: flex;
+  justify-content: center;
+}
+
+.article {
+  display: grid;
+  grid-template-rows: 1fr min-content;
+}
+
+@media (min-width: 650px){
+  .boardbox {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
+}
+
+@media (min-width: 750px) and (orientation: landscape) {
+  .article {
+    display: grid;
+    grid-template-rows: 1fr min-content;
+    max-width: 1000px;
+  }
+}
+
+
+
+
+

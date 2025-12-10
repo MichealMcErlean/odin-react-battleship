@@ -71,7 +71,7 @@ footer {
 
 @media (min-width: 700px) and (orientation: landscape) {
 
-  article {
+  .article {
     display: flex;
     justify-content: center;
     align-items: center;

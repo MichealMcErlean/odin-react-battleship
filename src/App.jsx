@@ -28,7 +28,7 @@ function App() {
           <h2>Place your ships!</h2>
         )}
       </header>
-      <article>
+      <article className='article'>
         <div className="playerboard">placeholder</div>
         <div className="buttonbox">
           <div className="shipbuttons">
