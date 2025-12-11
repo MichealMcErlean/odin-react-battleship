@@ -38,6 +38,7 @@ header, article, footer {
   aspect-ratio: 1 / 1;
   margin-left: auto;
   margin-right: auto;
+  padding: 0;
 }
 
 .shipbuttons {

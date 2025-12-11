@@ -21,6 +21,8 @@ function App() {
   const { player, setPlayer} = usePlayer();
   const { computer, setComputer} = useComputer;
 
+  console.log(player);
+
   // States for floating follower
   const [mousePosition, setMousePosition] = useState({x: 0, y: 0});
   const [isVisible, setIsVisible] = useState(false);
@@ -67,46 +69,10 @@ function App() {
     };
   }, [isVisible]);
 
-  // useEffect(() => {
-  //   placedShips.forEach(ship => {
-  //     document.getElementById(`#${ship}Button`).disabled = true;
-  //   })
-  // }, [placedShips]);
-
   function onShipSelect(shipType) {
     toggleVisibility();
     changeValue(availableShips[shipType]);
     setPlacing(shipType);
-  }
-
-  function handleCarrierClick() {
-    toggleVisibility();
-    changeValue(5);
-    setPlacing('carrier');
-  }
-
-  function handleBattleshipClick() {
-    toggleVisibility();
-    changeValue(4);
-    setPlacing('battleship');
-  }
-
-  function handleCruiserClick() {
-    toggleVisibility();
-    changeValue(3);
-    setPlacing('cruiser');
-  }
-
-  function handleSubmarineClick() {
-    toggleVisibility();
-    changeValue(3);
-    setPlacing('submarine');
-  }
-  
-  function handleDestroyerClick() {
-    toggleVisibility();
-    changeValue(2);
-    setPlacing('destroyer');
   }
 
   function handlePlaceShip(event, rowI, colI) {
@@ -157,46 +123,6 @@ function App() {
               placedShips={placedShips}
               onShipSelect={onShipSelect}
             />
-            {/* <button 
-              id='carrierButton'
-              type="button"
-              onClick={handleCarrierClick}
-            > 
-              <p>Carrier</p>
-              <p className="lengthnum">5</p>
-            </button>
-            <button 
-              id='battleshipButton'
-              type="button"
-              onClick={handleBattleshipClick}
-            >
-              <p>Battleship</p>
-              <p className="lengthnum">4</p>
-            </button>
-            <button 
-              id='cruiserButton'
-              type="button"
-              onClick={handleCruiserClick}
-            >
-              <p>Cruiser</p>
-              <p className="lengthnum">3</p>
-            </button>
-            <button 
-              id='submarineButton'
-              type="button"
-              onClick={handleSubmarineClick}
-            >
-              <p>Sub</p>
-              <p className="lengthnum">3</p>
-            </button>
-            <button 
-              id='destroyerButton'
-              type="button"
-              onClick={handleDestroyerClick}
-            >
-              <p>Destroyer</p>
-              <p className="lengthnum">2</p>
-            </button> */}
           </div>
           <div className="utilbuttons">
             <button type="button">Random Positions</button>

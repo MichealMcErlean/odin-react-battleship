@@ -13,7 +13,7 @@ export default function ShipSelector({availableShips, placedShips, onShipSelect}
             <p>
               {shipType.charAt(0).toUpperCase() + shipType.slice(1)}
             </p>
-            <p>{availableShips[shipType]}</p>
+            <p className='lengthnum'>{availableShips[shipType]}</p>
           </button>
         );
       })}

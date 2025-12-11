@@ -114,8 +114,13 @@ export class GameBoard {
 
 export class Player {
   constructor(type) {
-    this.board = new Array(8);
-    this.board.fill(new Array(8).fill({ hit: false, ship: null}));
+    this.board = Array.from({ length: 8 }, () => 
+      Array.from({length: 8}, () => ({
+        hit: false,
+        ship: null
+      }))
+    );
+
     this.ships = {
       destroyer: {length: 2, hits: 0, sunk: false},
       submarine: {length: 3, hits: 0, sunk: false},
@@ -138,14 +143,14 @@ export function isLegalPlace(xy, player, length, type) {
   let allCellsValid = true;
   if (type == 'horizontal') {
     if (x >= 0 && x < player.size) {
-      if (y >= 0 && y < (player.size - length)) {
+      if (y >= 0 && y <= (player.size - length)) {
         validStart = true;
       }
     }
   }
   if (type == 'vertical') {
     if (x >= 0 && x < player.size - length) {
-      if (y >= 0 && y < player.size) {
+      if (y >= 0 && y <= player.size) {
         validStart = true;
       }
     }
