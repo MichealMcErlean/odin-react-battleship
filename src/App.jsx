@@ -1,6 +1,9 @@
 import { useState, useEffect } from 'react'
 import './App.css'
 import FollowerShape from './components/FollowerShape';
+import Board from './components/Board';
+import { usePlayer } from './contexts/PlayerContext.jsx';
+import { useComputer } from './contexts/ComputerContext.jsx';
 
 function App() {
   const [carrierPlaced, setCarrierPlaced] = useState(false);
@@ -9,6 +12,10 @@ function App() {
   const [submarinePlaced, setSubmarinePlaced] = useState(false);
   const [destroyerPlaced, setDestroyerPlaced] = useState(false);
   const [placing, setPlacing] = useState(null);
+
+  //Contexts
+  const { player, setPlayer} = usePlayer();
+  const { computer, setComputer} = useComputer;
 
   // States for floating follower
   const [mousePosition, setMousePosition] = useState({x: 0, y: 0});
@@ -90,7 +97,7 @@ function App() {
     setPlacing('destroyer');
   }
 
-  function handlePlaceShip(event) {
+  function handlePlaceShip(event, rowI, colI) {
     return;
   }
 
@@ -106,7 +113,10 @@ function App() {
       </header>
       <article className='article'>
         <div className="playerboard">
-          placeholder
+          <Board 
+            type='human'
+            onClick={handlePlaceShip}
+          />
         </div>
         <div className="buttonbox">
           <div className="shipbuttons">

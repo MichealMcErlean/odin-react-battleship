@@ -123,10 +123,9 @@ export class Player {
       battleship: {length: 4, hits: 0, sunk: false},
       carrier: {length: 5, hits: 0, sunk: false}
     }
-    this.shots = new Set(); 
+    this.shots = new Set();
+    this.shotsQueue = []; 
     this.size = 8;
     this.type = type == 'human' ? type : 'computer';
   }
-
-
 }
