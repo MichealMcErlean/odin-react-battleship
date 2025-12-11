@@ -1,11 +1,11 @@
 main {
   background-image:url('./assets/topography.svg');
+  background-repeat: repeat;
   background-color: #3a038d;
   color:aliceblue;
   min-height: 100vh;
-  min-width: 100 vw;
   display: grid;
-  grid-template-rows: min-content 1fr min-content;
+  grid-template-rows: min-content 1fr min-content min-content;
   font-size: clamp(1.4rem, 1.4rem + 1vw, 1.8rem);
 }
 
@@ -18,20 +18,30 @@ header {
   text-align: center;
 }
 
+header, article, footer {
+  min-width: 0;
+}
+
+.playerboard, .buttonbox {
+  min-width: 0;
+}
+
+.shipbuttons, .utilbuttons {
+  min-width: 0;
+}
+
 .playerboard {
   border: 3px solid black;
   /* height: clamp(320px, 320px + 2vh + 2vw, 640px); */
-  width: clamp(320px, 100% - 4vw, 640px);
-  height: clamp(320px, 100% - 4vw, 640px);
+  width: clamp(320px, 100% - 4vw, 480px);
+  height: auto;
   aspect-ratio: 1 / 1;
-  min-height: 320px;
-  min-width: 320px;
   margin-left: auto;
   margin-right: auto;
 }
 
 .shipbuttons {
-  width: clamp(320px, 320px + 2vh + 2vw, 640px);
+  max-width: clamp(320px, 100% - 4vw, 480px);
   margin-left: auto;
   margin-right: auto;
   display: flex;
@@ -41,7 +51,14 @@ header {
 
 .shipbuttons button {
   width: 33%;
+}
 
+.shipbuttons button p {
+  padding: 0;
+}
+
+button:active {
+  transform: scale(0.90);
 }
 
 .lengthnum {
@@ -49,7 +66,7 @@ header {
 }
 
 .utilbuttons {
-  width: clamp(320px, 320px + 2vh + 2vw, 640px);
+  max-width: clamp(320px, 320px + 2vh + 2vw, 640px);
   margin-left: auto;
   margin-right: auto;
   display: flex;
@@ -63,6 +80,14 @@ header {
 footer {
   font-size: 1.0rem;
   background-color: #222;
+}
+
+footer a:link {
+  color:aqua;
+}
+
+footer a:visited {
+  color: hotpink;
 }
 
 .credits {
