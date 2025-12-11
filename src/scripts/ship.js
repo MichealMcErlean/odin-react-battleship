@@ -129,3 +129,49 @@ export class Player {
     this.type = type == 'human' ? type : 'computer';
   }
 }
+
+export function isLegalPlace(xy, player, length, type) {
+  const [x, y] = xy;
+  let cells = [];
+
+  let validStart = false; 
+  let allCellsValid = true;
+  if (type == 'horizontal') {
+    if (x >= 0 && x < player.size) {
+      if (y >= 0 && y < (player.size - length)) {
+        validStart = true;
+      }
+    }
+  }
+  if (type == 'vertical') {
+    if (x >= 0 && x < player.size - length) {
+      if (y >= 0 && y < player.size) {
+        validStart = true;
+      }
+    }
+  } 
+  if (validStart) {
+    if (type == 'horizontal') {
+      for (let i = y; i < (y + length); i++) {
+        cells.push([x, i]);
+      }
+    }
+    if (type == 'vertical') {
+      for (let j = x; j < x + length; j++) {
+        cells.push([j, y]);
+      }
+    }
+    cells.forEach(cell => {
+      if (player.board[cell[0]][cell[1]].ship != null) {
+        allCellsValid = false;
+      }
+    })
+    if (allCellsValid) {
+      return cells;
+    } else {
+      return false;
+    }
+  } else {
+    return false;
+  }
+}

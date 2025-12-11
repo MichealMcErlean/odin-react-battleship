@@ -14,8 +14,6 @@ export default function Board({onClick, type}) {
     ({player, setPlayer} = useComputer());
   }
 
-  console.log(player);
-
   return (
     <div className={styles.container}>
       {player.board.map((row, rowI) => (

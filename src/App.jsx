@@ -2,17 +2,21 @@ import { useState, useEffect } from 'react'
 import './App.css'
 import FollowerShape from './components/FollowerShape';
 import Board from './components/Board';
+import ShipButtons from './components/ShipButtons.jsx'
 import { usePlayer } from './contexts/PlayerContext.jsx';
 import { useComputer } from './contexts/ComputerContext.jsx';
+import { isLegalPlace } from './scripts/ship.js';
 
 function App() {
-  const [carrierPlaced, setCarrierPlaced] = useState(false);
-  const [battleshipPlaced, setBattleshipPlaced] = useState(false);
-  const [cruiserPlaced, setCruiserPlaced] = useState(false);
-  const [submarinePlaced, setSubmarinePlaced] = useState(false);
-  const [destroyerPlaced, setDestroyerPlaced] = useState(false);
+  const [placedShips, setPlacedShips] = useState([]);
   const [placing, setPlacing] = useState(null);
-
+  const [availableShips, setAvailableShips] = useState({
+    carrier: 5, 
+    battleship: 4, 
+    cruiser: 3, 
+    submarine: 3, 
+    destroyer: 2,
+})
   //Contexts
   const { player, setPlayer} = usePlayer();
   const { computer, setComputer} = useComputer;
@@ -50,11 +54,7 @@ function App() {
 
   function allShipsPlaced() {
     return (
-      carrierPlaced == true &&
-      battleshipPlaced == true &&
-      cruiserPlaced == true &&
-      submarinePlaced == true &&
-      destroyerPlaced == true
+      placedShips.length == 5
     );
   }
 
@@ -66,6 +66,18 @@ function App() {
       window.removeEventListener('mousemove', updateMousePosition);
     };
   }, [isVisible]);
+
+  // useEffect(() => {
+  //   placedShips.forEach(ship => {
+  //     document.getElementById(`#${ship}Button`).disabled = true;
+  //   })
+  // }, [placedShips]);
+
+  function onShipSelect(shipType) {
+    toggleVisibility();
+    changeValue(availableShips[shipType]);
+    setPlacing(shipType);
+  }
 
   function handleCarrierClick() {
     toggleVisibility();
@@ -98,7 +110,27 @@ function App() {
   }
 
   function handlePlaceShip(event, rowI, colI) {
-    return;
+    if (!isVisible) {
+      alert('Pick a ship to place!');
+      return;
+    }
+    let cells = isLegalPlace([rowI, colI], player, shapeConfig.numberValue, shapeConfig.type);
+    console.log(cells);
+    if (!cells) {
+      alert('Illegal placement!');
+      return;
+    }
+    let newPlayer = structuredClone(player);
+    console.log(cells);
+    console.log(placing);
+    cells.forEach(cell => {
+      newPlayer.board[cell[0]][cell[1]].ship = String(placing);
+    })
+    setPlayer(newPlayer);
+    console.log(newPlayer);
+    setPlacedShips(prev => [...prev, placing]);
+    setPlacing(null);
+    toggleVisibility();
   }
 
   return (
@@ -120,7 +152,13 @@ function App() {
         </div>
         <div className="buttonbox">
           <div className="shipbuttons">
-            <button 
+            <ShipButtons 
+              availableShips={availableShips}
+              placedShips={placedShips}
+              onShipSelect={onShipSelect}
+            />
+            {/* <button 
+              id='carrierButton'
               type="button"
               onClick={handleCarrierClick}
             > 
@@ -128,6 +166,7 @@ function App() {
               <p className="lengthnum">5</p>
             </button>
             <button 
+              id='battleshipButton'
               type="button"
               onClick={handleBattleshipClick}
             >
@@ -135,6 +174,7 @@ function App() {
               <p className="lengthnum">4</p>
             </button>
             <button 
+              id='cruiserButton'
               type="button"
               onClick={handleCruiserClick}
             >
@@ -142,6 +182,7 @@ function App() {
               <p className="lengthnum">3</p>
             </button>
             <button 
+              id='submarineButton'
               type="button"
               onClick={handleSubmarineClick}
             >
@@ -149,12 +190,13 @@ function App() {
               <p className="lengthnum">3</p>
             </button>
             <button 
+              id='destroyerButton'
               type="button"
               onClick={handleDestroyerClick}
             >
               <p>Destroyer</p>
               <p className="lengthnum">2</p>
-            </button>
+            </button> */}
           </div>
           <div className="utilbuttons">
             <button type="button">Random Positions</button>
