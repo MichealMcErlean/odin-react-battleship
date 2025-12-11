@@ -180,3 +180,36 @@ export function isLegalPlace(xy, player, length, type) {
     return false;
   }
 }
+
+export function placeShipsAtRandom(availableShips, player, setPlayer) {
+  if (!player || !player.size) {
+    console.error("CRITICAL ERROR: player object is invalid or missing size parameter");
+    return;
+  }
+  let newPlayer = structuredClone(player);
+  let ships = Object.entries(availableShips);
+
+  ships.forEach(ship => {
+    let shipPlaced = false;
+    while (shipPlaced == false) {
+      let type = Math.random() > 0.5 ? 'horizontal' : 'vertical';
+      let startCell = [null, null];
+      if (type == 'horizontal') {
+        startCell[0] = Math.floor(Math.random() * player.size);
+        startCell[1] = Math.floor(Math.random() * (player.size - ship[1]));
+      } else {
+        startCell[0] = Math.floor(Math.random() * (player.size - ship[1]));
+        startCell[1] = Math.floor(Math.random() * player.size);
+      }
+      let coords = isLegalPlace(startCell, newPlayer, ship[1], type);
+      if (coords) {
+        coords.forEach(xy => {
+          newPlayer.board[xy[0]][xy[1]].ship = ship[0];
+        })
+        shipPlaced = true;
+      }
+    }
+  })
+  console.log(newPlayer);
+  setPlayer(newPlayer);
+}

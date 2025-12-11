@@ -1,7 +1,8 @@
 import {createContext, useContext, useState} from 'react';
 import { Player } from '../scripts/ship';
 
-export const ComputerContext = createContext(undefined);
+const initialComputerState = new Player('computer');
+export const ComputerContext = createContext(initialComputerState);
 
 export const useComputer = () => {
   const context = useContext(ComputerContext);
@@ -12,13 +13,11 @@ export const useComputer = () => {
 }
 
 export const ComputerProvider = ({children}) => {
-  const [computer, setComputer] = useState(new Player('computer'));
-  const contextValue = {
-    computer,
-    setComputer
-  };
+  const [computer, setComputer] = useState(initialComputerState);
+  console.log(computer);
+  
   return (
-    <ComputerContext.Provider value={contextValue}>
+    <ComputerContext.Provider value={{computer, setComputer}}>
       {children}
     </ComputerContext.Provider>
   );

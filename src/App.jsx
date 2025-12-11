@@ -1,11 +1,16 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect} from 'react'
+import { useNavigate } from 'react-router';
 import './App.css'
 import FollowerShape from './components/FollowerShape';
 import Board from './components/Board';
 import ShipButtons from './components/ShipButtons.jsx'
 import { usePlayer } from './contexts/PlayerContext.jsx';
 import { useComputer } from './contexts/ComputerContext.jsx';
-import { isLegalPlace } from './scripts/ship.js';
+import { 
+  Player, 
+  isLegalPlace,
+  placeShipsAtRandom 
+} from './scripts/ship.js';
 
 function App() {
   const [placedShips, setPlacedShips] = useState([]);
@@ -17,11 +22,12 @@ function App() {
     submarine: 3, 
     destroyer: 2,
 })
+
+  const navigate = useNavigate();
+
   //Contexts
   const { player, setPlayer} = usePlayer();
-  const { computer, setComputer} = useComputer;
-
-  console.log(player);
+  const { computer, setComputer} = useComputer();
 
   // States for floating follower
   const [mousePosition, setMousePosition] = useState({x: 0, y: 0});
@@ -99,6 +105,27 @@ function App() {
     toggleVisibility();
   }
 
+  function resetBoard() {
+    if (isVisible) {
+      toggleVisibility();
+    }
+    setPlacing(null);
+    setPlacedShips([]);
+    setPlayer(new Player('human'));
+  }
+
+  function handleRandomShips() {
+    placeShipsAtRandom(availableShips, player, setPlayer);
+    Object.keys(availableShips).forEach(ship => {
+      placedShips.push(ship);
+    })
+  }
+
+  function handleStartGame() {
+    placeShipsAtRandom(availableShips, computer, setComputer);
+    navigate('/game');
+  }
+
   return (
     <main>
       <header>
@@ -125,15 +152,26 @@ function App() {
             />
           </div>
           <div className="utilbuttons">
-            <button type="button">Random Positions</button>
+            <button 
+              type="button"
+              onClick={handleRandomShips}
+            >
+              Random Positions
+            </button>
             <button 
               type="button"
               onClick={() => toggleDirection()}
             >
               Rotate
             </button>
-            <button type="button">Reset</button>
-            <button type="button">Start Game</button>
+            <button type="button" onClick={resetBoard}>Reset</button>
+            <button 
+              type="button"
+              disabled={allShipsPlaced() ? false : true}
+              onClick={handleStartGame}
+            >
+              Start Game
+            </button>
           </div>
         </div>
       </article>
