@@ -10,7 +10,7 @@ main {
 }
 
 main * {
-  padding: 5px;
+  /* padding: 5px; */
   font-family: 'Courier New', Courier, monospace;
 }
 

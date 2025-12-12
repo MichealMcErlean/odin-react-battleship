@@ -1,3 +1,17 @@
+html, body, #root {
+  height: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+.main {
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: min-content 1fr min-content;
+  padding: 0;
+  margin: 0;
+}
+
 .link:link {
   color:aqua;
 }
@@ -19,9 +33,10 @@
   font-size: 1.2rem;
   overflow-y: scroll;
   display: flex;
-  flex-direction: column-reverse;
-  mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
-  margin: auto auto 0 auto;
+  flex-direction: column;
+  /* mask-image: linear-gradient(to bottom, transparent 10%, black 100%); */
+  margin: 0 auto 0 auto;
+  padding: 5px;
 }
 
 .msglog p {
@@ -67,38 +82,32 @@
 }
 
 .article {
-  display: grid;
-  grid-template-rows: 1fr min-content;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 50px;
+}
+
+.shipNumber {
+  font-size: 3.6rem;
+  margin: 10px;
 }
 
 @media (min-width: 650px){
   .boardbox {
     display: flex;
     justify-content: center;
-    gap: 20px;
+    gap: 50px;
     align-items: center;
     width: clamp(650px, 90%, 800px);
   }
 }
 
 @media (min-width: 750px) and (orientation: landscape) {
-  .article {
-    display: grid;
-    grid-template-rows: 1fr 2fr 1fr;
-    width: clamp(750px, 90%, 1000px);
-    margin: 0 auto;
-  }
+  
 
   .header {
-    height: clamp(min-content, 200px + 10vh, 400px );
-    display: flex;
-    justify-items: center;
-    align-items: end;
-  }
 
-  .main {
-    display: grid;
-    grid-template-rows: 1fr 2fr min-content;
   }
 
 }

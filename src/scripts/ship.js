@@ -213,3 +213,7 @@ export function placeShipsAtRandom(availableShips, player, setPlayer) {
   console.log(newPlayer);
   setPlayer(newPlayer);
 }
+
+export function makeAttack(rowI, colI, player) {
+  return player.board[rowI][colI].ship
+}

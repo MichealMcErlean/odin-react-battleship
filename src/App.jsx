@@ -1,6 +1,6 @@
 import { useState, useEffect} from 'react'
 import { useNavigate } from 'react-router';
-import './App.css'
+import styles from './App.module.css'
 import FollowerShape from './components/FollowerShape';
 import Board from './components/Board';
 import ShipButtons from './components/ShipButtons.jsx'
@@ -136,22 +136,22 @@ function App() {
           <h2>Place your ships!</h2>
         )}
       </header>
-      <article className='article'>
-        <div className="playerboard">
+      <article className={styles.article}>
+        <div className={styles.playerboard}>
           <Board 
             type='human'
             onClick={handlePlaceShip}
           />
         </div>
-        <div className="buttonbox">
-          <div className="shipbuttons">
+        <div className={styles.buttonbox}>
+          <div className={styles.shipbuttons}>
             <ShipButtons 
               availableShips={availableShips}
               placedShips={placedShips}
               onShipSelect={onShipSelect}
             />
           </div>
-          <div className="utilbuttons">
+          <div className={styles.utilbuttons}>
             <button 
               type="button"
               onClick={handleRandomShips}
