@@ -12,8 +12,8 @@
 }
 
 .msglog {
-  width: clamp(300px, 100vw - 4vw, 400px);
-  height: clamp( 40px, 40px + 1vw + 1vh, 60px);
+  width: clamp(300px, 100vw - 4vw, 500px);
+  height: clamp( 40px, 40px + 2vw + 2vh, 100px);
   background-color: aliceblue;
   color: black;
   font-size: 1.2rem;
@@ -21,7 +21,7 @@
   display: flex;
   flex-direction: column-reverse;
   mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
-  margin: 0 auto;
+  margin: auto auto 0 auto;
 }
 
 .msglog p {
@@ -30,10 +30,16 @@
 
 .boardbox {
   margin: 0 auto;
+  padding: 0;
   display: grid;
   grid-template-rows: 1fr 1fr;
   width: 100%;
   align-items:center;
+  font-size: 1.0rem;
+}
+
+.boardAndTitle {
+  text-align: center;
 }
 
 .computerboard {
@@ -43,6 +49,7 @@
   border: 2px solid black;
   margin-left: auto;
   margin-right: auto;
+  padding: 0;
 }
 
 .playerboard {
@@ -51,6 +58,7 @@
   aspect-ratio: 1 / 1;
   border: 2px solid black;
   margin: 5px auto;
+  padding: 0;
 }
 
 .buttonbox {
@@ -66,17 +74,33 @@
 @media (min-width: 650px){
   .boardbox {
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
+    gap: 20px;
     align-items: center;
+    width: clamp(650px, 90%, 800px);
   }
 }
 
 @media (min-width: 750px) and (orientation: landscape) {
   .article {
     display: grid;
-    grid-template-rows: 1fr min-content;
-    max-width: 1000px;
+    grid-template-rows: 1fr 2fr 1fr;
+    width: clamp(750px, 90%, 1000px);
+    margin: 0 auto;
   }
+
+  .header {
+    height: clamp(min-content, 200px + 10vh, 400px );
+    display: flex;
+    justify-items: center;
+    align-items: end;
+  }
+
+  .main {
+    display: grid;
+    grid-template-rows: 1fr 2fr min-content;
+  }
+
 }
 
 

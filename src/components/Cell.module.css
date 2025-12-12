@@ -1,7 +1,7 @@
 .missedShot {
   background-color: #222;
   color: white;
-  font-size: 2.4rem;
+  /* font-size: 2.4rem; */
   border: 1px solid #222;
   aspect-ratio: 1 / 1;
   display: flex;
@@ -12,7 +12,7 @@
 .openOcean {
   background-image:linear-gradient(rgb(13, 66, 64), midnightblue,rgb(13, 66, 64) );
   color: white;
-  font-size:2.4rem;
+  /* font-size:2.4rem; */
   border: 1px solid #222;
   aspect-ratio: 1 / 1;
   display: flex;
@@ -23,7 +23,7 @@
 .hitShip {
   background-color: red;
   color: aliceblue;
-  font-size: 2.4rem;
+  /* font-size: 2.4rem; */
   border: 1px solid #222;
   aspect-ratio: 1 / 1;
   display: flex;
@@ -34,7 +34,7 @@
 .friendlyShip {
   background-color:darkgreen;
   color:aliceblue;
-  font-size: 2.4rem;
+  /* font-size: 2.4rem; */
   border: 1px solid #222;
   aspect-ratio: 1 / 1;
   display: flex;
