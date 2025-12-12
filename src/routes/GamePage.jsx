@@ -45,6 +45,14 @@ export default function GamePage() {
   }
 
   useEffect(() => {
+    if (playerShipsLeft === 0) {
+      alert("You've lost! Click 'Restart Game' to try again!");
+    } else if (computerShipsLeft === 0) {
+      alert("You've won! Click 'Restart Game' to play again!")
+    }
+  }, [playerShipsLeft, computerShipsLeft])
+
+  useEffect(() => {
     scrollToBottom();
   }, [msglog])
 
@@ -141,11 +149,12 @@ export default function GamePage() {
   return (
     <main className = {styles.main}>
       <header className={styles.header}>
-        <p>Click in enemy waters to fire salvos!</p>
-        <p>Find and destroy the enemy ships before you lose your own!</p>
       </header>
       <article className={styles.article}>
+        <p>Click in enemy waters to fire salvos!</p>
+        <p>Find and destroy the enemy ships before you lose your own!</p>
         <div className={styles.msglog}>
+          
           {msglog.map((msg, index) => (
             <Message
               key={index}

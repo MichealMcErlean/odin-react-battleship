@@ -85,12 +85,21 @@ html, body, #root {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
   gap: 50px;
 }
 
 .shipNumber {
   font-size: 3.6rem;
   margin: 10px;
+}
+
+.resetButton {
+  min-height: 66px;
+  font-size: 2.4rem;
+  padding: 5px;
+  background-color: darkblue;
+  color: aliceblue;
 }
 
 @media (min-width: 650px){
