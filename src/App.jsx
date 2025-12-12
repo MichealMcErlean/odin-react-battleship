@@ -38,6 +38,20 @@ function App() {
     numberValue: 5,
   });
 
+  const handleNavigationToGame = () => {
+    const destinationPath='/game';
+
+    if (!document.startViewTransition) {
+      //fallback for non-compliant browsers
+      navigate(destinationPath);
+      return;
+    }
+
+    document.startViewTransition(() => {
+      navigate(destinationPath);
+    });
+  }
+
   function updateMousePosition(ev) {
     setMousePosition({x: ev.clientX, y: ev.clientY});
   }
@@ -123,7 +137,7 @@ function App() {
 
   function handleStartGame() {
     placeShipsAtRandom(availableShips, computer, setComputer);
-    navigate('/game');
+    handleNavigationToGame();
   }
 
   return (

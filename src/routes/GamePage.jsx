@@ -29,6 +29,20 @@ export default function GamePage() {
     msglogEndRef.current?.scrollIntoView({behaviour: 'smooth'});
   }
 
+  const handleNavigateToRoot = () => {
+    const destinationPath = '/';
+
+    if (!document.startViewTransition) {
+      //Fallback for older browsers
+      navigate(destinationPath);
+      return;
+    }
+
+    document.startViewTransition(() => {
+      navigate(destinationPath);
+    });
+  };
+
   function generateCandidates(x, y) {
     let potentials = [[x - 1, y], [x + 1, y], [x, y - 1], [x, y + 1]];
     let candidates = [];
@@ -137,7 +151,7 @@ export default function GamePage() {
   function handleRestartGame() {
     setPlayer(new Player('human'));
     setComputer(new Player('computer'));
-    navigate('/');
+    handleNavigateToRoot();
   }
 
   if (!player || !computer) {
