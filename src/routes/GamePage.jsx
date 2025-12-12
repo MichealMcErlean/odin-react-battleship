@@ -23,14 +23,77 @@ export default function GamePage() {
   }, [computer]);
 
   const msglogEndRef = useRef(null);
+  const moveQueue = useRef([]);
 
   const scrollToBottom = () => {
     msglogEndRef.current?.scrollIntoView({behaviour: 'smooth'});
   }
 
+  function generateCandidates(x, y) {
+    let potentials = [[x - 1, y], [x + 1, y], [x, y - 1], [x, y + 1]];
+    let candidates = [];
+    potentials.forEach(xy => {
+      if (
+        x >= 0 && x < player.size &&
+        y >= 0 && y < player.size &&
+        (!player.shots.has(JSON.stringify(xy)))
+      ) {
+        candidates.push(xy);
+      }
+    });
+    return candidates;
+  }
+
   useEffect(() => {
     scrollToBottom();
   }, [msglog])
+
+  function makeComputerAttack() {
+    let newShot;
+    if (moveQueue.current.length > 0) {
+      newShot = moveQueue.current.shift();
+    } else {
+      let validShot = false;
+      while (!validShot) {
+        let rowI = Math.floor(Math.random() * player.size);
+        let colI = Math.floor(Math.random() * player.size);
+        newShot = [rowI, colI];
+        if (!player.shots.has(JSON.stringify(newShot))) {
+          validShot = true;
+        }
+      }
+    }
+    console.log(newShot);
+    let newPlayer = structuredClone(player);
+    let newShotToSet = JSON.stringify(newShot);
+    newPlayer.shots.add(newShotToSet);
+    let x = newShot[0];
+    let y = newShot[1];
+    const whatWasHit = makeAttack(x, y, newPlayer);
+    newPlayer.board[x][y].hit = true;
+    let newMsg = 'Computer ';
+    if (whatWasHit) {
+      let candidates = generateCandidates(x, y);
+      moveQueue.current = [...moveQueue.current, ...candidates];
+      let hitShip = newPlayer.ships[whatWasHit];
+      hitShip.hits += 1;
+      if (hitShip.hits >= hitShip.length) {
+        hitShip.sunk = true;
+        newMsg += 'sunk a ' + whatWasHit + '!';
+        delete newPlayer.ships[whatWasHit];
+        // empty queue now it's done its job
+        moveQueue.current = [];
+      } else {
+        newMsg += 'hit a ' + whatWasHit + '!';
+      }
+    } else {
+      newMsg += 'missed...';
+    }
+    setMsglog(prev => [...prev, (
+      <p>{newMsg}</p>
+    )]);
+    setPlayer(newPlayer);
+  }
 
   function handlePlayerAttack(event, rowI, colI) {
     let newCell = JSON.stringify([rowI, colI])
@@ -60,6 +123,7 @@ export default function GamePage() {
       <p>{newMsg}</p>
     )]);
     setComputer(newComputer);
+    makeComputerAttack();
   }
 
   function handleRestartGame() {
